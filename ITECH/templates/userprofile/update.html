@@ -1,0 +1,66 @@
+{% extends "IT/base.html" %}
+{% block title %}modify{% endblock %}
+{% block content %}
+<div class="container">
+    <form method="post" enctype="multipart/form-data" class="mt-4">
+        {% csrf_token %}
+
+        <!-- Name -->
+        <div class="mb-3">
+            <label for="Name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="Name" name="Name" value="{{ restaurant.Name }}">
+        </div>
+
+        <!-- Introduction -->
+        <div class="mb-3">
+            <label for="Introduction" class="form-label">Introduction</label>
+            <textarea class="form-control" rows="5" id="Introduction" name="Introduction">{{ restaurant.Introduction }}</textarea>
+        </div>
+
+        <!-- Address -->
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea class="form-control" rows="5" id="address" name="address">{{ restaurant.address }}</textarea>
+        </div>
+
+        <!-- Business Hours -->
+        <div class="mb-3">
+            <label for="business_Hours" class="form-label">Business Hours</label>
+            <textarea class="form-control" rows="5" id="business_Hours" name="business_Hours">{{ restaurant.business_Hours }}</textarea>
+        </div>
+
+        <!-- Image Upload Section -->
+        <div class="mb-3">
+            <!-- Main Image Preview -->
+            <div style="height:300px; width:400px; overflow:hidden; margin-bottom: 10px;">
+                {% if restaurant.main_image %}
+                <input type="hidden" name="old_main_image" value="{{ restaurant.main_image.url }}">
+                    <img src="{{ restaurant.main_image.url }}" class="img-fluid rounded-start" style="width:100%; height:100%;" alt="Main Image">
+                {% else %}
+                    <p>No main image uploaded.</p>
+                {% endif %}
+            </div>
+            <!-- Upload Main Image -->
+            <label for="main_image" class="form-label">Upload Main Image</label>
+            <input type="file" class="form-control btn btn-secondary" id="main_image" name="main_image" accept="image/*">
+
+            <!-- Restaurant Image Preview -->
+            <div style="height:300px; width:500px; overflow:hidden; margin-bottom: 10px;">
+                {% if restaurant.restaurant_image %}
+                    <input type="hidden" name="old_restaurant_image_image" value="{{ restaurant.restaurant_image.url }}">
+                    <img src="{{ restaurant.restaurant_image.url }}" class="img-fluid rounded-start" style="width:100%; height:100%;" alt="Restaurant Image">
+                {% else %}
+                    <p>No restaurant image uploaded.</p>
+                {% endif %}
+            </div>
+            <!-- Upload Restaurant Image -->
+            <label for="restaurant_image" class="form-label">Upload Restaurant Image</label>
+            <input type="file" class="form-control btn btn-secondary" id="restaurant_image" name="restaurant_image" accept="image/*">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Modify</button>
+    </form>
+</div>
+
+{% endblock %}

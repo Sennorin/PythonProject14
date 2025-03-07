@@ -1,0 +1,37 @@
+{% extends "userprofile/base_login.html" %}
+{% block content %}
+<form class='p-5' action="." method="post">
+    {% csrf_token %}
+    <span class="text-danger">{{ error }}</span>
+    <div class="input-group mb-4">
+        <span class="input-group-text" id="basic-addon1"><i class="bi bi-person"></i></span>
+        <input type="text" class="form-control" placeholder="username" name="username"
+               aria-describedby="basic-addon1" required="required">
+    </div>
+    <div class="input-group mb-4">
+        <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope"></i></span>
+        <input type="email" class="form-control" placeholder="email" name="email"
+               aria-describedby="basic-addon1" required="required">
+    </div>
+    <div class="input-group mb-4">
+        <span class="input-group-text" id="basic-addon1"><i class="bi bi-key"></i></span>
+        <input type="password" class="form-control" placeholder="password" name="password"
+               aria-describedby="basic-addon1" required="required">
+    </div>
+    <div class="input-group mb-4">
+        <span class="input-group-text" id="basic-addon1"><i class="bi bi-key"></i></span>
+        <input type="password" class="form-control" placeholder="
+Confirm Password" name="password2"
+               aria-describedby="basic-addon1" required="required">
+    </div>
+    <div class="d-grid gap-3">
+        <button type="submit" class="btn btn-primary">sign up</button>
+    </div>
+    <div class="mt-3 row">
+        <div class="col-6 justify-content-start"></div>
+        <div class="col-6 justify-content-end">
+            <a class="text-decoration-none float-end text-secondary" href="{% url 'userprofile:user_login' %}">Already have an account？</a>
+        </div>
+    </div>
+</form>
+{% endblock %}

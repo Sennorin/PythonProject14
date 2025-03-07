@@ -1,0 +1,57 @@
+{% extends "IT/base.html" %}
+{% block title %}profile{% endblock %}
+{% block content %}
+<div class="row">
+<div style="margin-top: 50px;margin-left: 50px;"  class="col col-3">
+<img style="margin-left: 50px;width: 200px; height: 200px;" src="{{ user.avatar.url }}" class="img-thumbnail d-block" alt="头像">
+
+
+<form method="post" enctype="multipart/form-data" action="{% url 'userprofile:user_profile' %}">
+    {% csrf_token %}
+    {{ ProfileForm.as_p }}
+    <div style="display: flex;
+    flex-direction: column;width: 200px; height: 200px; text-align: center; margin-left: 50px;">
+    <label style="font-size: 14px;" class="btn btn-secondary" for="avatar">Upload Avatar</label>
+    <input style="font-size: 14px; display: none;" type="file" id="avatar" name="avatar"  accept="image/*" required/>
+    <button style="font-size: 14px;" class="btn btn-secondary" type="submit">upload</button><br>
+    </div>
+</form>
+</div >
+    <div  style="margin-top: 50px;" class="col card col-7">
+    <div class="card-body p-4" style="margin-top: 70px;">
+        <h5 class="mb-3"> Username: {{ user.username }}</h5>
+        <h5 class="mb-3"> Email: {{ user.email }}</h5>
+        <h5 class="mb-5"> category: {{ user.category }}</h5>
+        <h5 class="mb-5">  <a  href="{% url 'userprofile:register_restaurant' %}">Register a restaurant</a> </h5>
+        </div>
+            </div>
+</div>
+<div class="row">
+<div style="margin-top: 50px;margin-left: 50px;"  class="col col-3"></div>
+ <div  style="margin-top: 50px;" class="col col-7">
+{% if restaurants %}
+     <h2 style="margin-bottom:50px" class="text-center text-primary">Registered restaurant</h2>
+        {% for restaurant in restaurants %}
+     <div class="card">
+         <div class="card-header">
+       <p> <a href="{% url 'IT:restaurant_detail' id=restaurant.id %}">{{ restaurant.Name }}</a></p>
+             </div>
+         <div class="card-body">
+             <p>Address:  {{restaurant.address}}</p>
+             <p>Rating: {{restaurant.rating}}</p>
+            <img style="width: 200px; height: 200px;" src="{{restaurant.main_image.url}}" class="img-thumbnail d-block" alt="image">
+         </div>
+     </div>
+        {% endfor %}
+
+{% else %}
+     <h2 style="margin-bottom:50px" class="text-center text-primary">You don't have any restaurants yet!</h2>
+{% endif %}
+ </div>
+</div>
+
+
+
+
+
+{% endblock %}

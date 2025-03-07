@@ -1,0 +1,62 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'IT:restaurant_list' %}?search={{ search }}&order=created">
+      Group 126
+    </a>
+      <form class="d-flex" action="{% url 'IT:restaurant_list' %}?">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="research..." value="{{ search }}" name="search" aria-describedby="search" required>
+                <button class="input-group-text" type="submit" id="search"><i class="bi bi-search"></i></button>
+            </div>
+        </form>
+      <div class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav d-flex flex-row align-items-center">
+    {% if user.is_authenticated %}
+        <li class="nav-item">
+            <img src="{{ user.avatar.url }}" class="rounded-circle" style="width: 40px;height: 40px;">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'userprofile:user_profile' %}"><i class="bi bi-person-fill"></i>personal center</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'userprofile:user_logout' %}"><i class="bi bi-power"></i>logout</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'userprofile:user_login' %}">login</a>
+        </li>
+    {% endif %}
+</ul>
+
+        </div>
+  </div>
+</nav>
+<div class="text-center">
+    <img src="{% static 'images/background.jpg' %}" alt="Picture of rincharo" /> <!-- New line -->
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container" style="gap: 1rem;">
+        <a class="navbar-brand me-1" href="{% url 'IT:restaurant_list' %}?search={{ search }}&order=rating">HOME</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav d-flex justify-content-center w-100">
+                <li class="nav-item" style="margin-right: 60px;"> <!-- 增加右侧外边距 -->
+                    <a class="nav-link fs-4 text-white" href="{% url 'IT:restaurant_list' %}?search={{ search }}&order=rating">Highest Rating</a>
+                </li>
+                <li class="nav-item" style="margin-right: 60px;">
+                   <a class="nav-link fs-4 text-white" href="{% url 'IT:restaurant_list' %}?search={{ search }}&order=created">NEW Restaurant</a>
+                </li>
+                 <li class="nav-item" style="margin-right: 60px;">
+                    <a class="nav-link fs-4 text-white" href="{% url 'userprofile:user_profile' %}">account information</a>
+                </li>
+                 <li class="nav-item" style="margin-right: 60px;">
+                    <a class="nav-link fs-4 text-white" href="/IT/introduction/">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+

@@ -1,0 +1,16 @@
+{% extends "IT/base.html" %}
+{% block title %}register_restaurant.html{% endblock %}
+{% block content %}
+<div class="row">
+<div style="margin-top: 50px;margin-left: 50px;"  class="col col-3">
+    <img style="width: 200px; height: 200px;" src="{{ user.avatar.url }}" class="img-thumbnail d-block" alt="头像">
+</div>
+<div style="margin-top: 50px;margin-left: 50px;"  class="col col-3">
+<form method="post" enctype="multipart/form-data" action="{% url 'userprofile:register_restaurant' %}">
+    {% csrf_token %}
+    {{ register_restaurant_form.as_p }}
+    <button style="font-size: 14px;" class="btn btn-secondary" type="submit">upload</button><br>
+</form>
+</div>
+</div >
+  {% endblock %}

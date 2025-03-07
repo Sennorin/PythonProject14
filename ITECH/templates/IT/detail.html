@@ -1,0 +1,108 @@
+{% extends "IT/base.html" %}
+{% block title %}文章详情{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="container shadow col-7">
+        <div class="pt-4">
+            <h1>{{ restaurants.Name}}</h1>
+            <small class="text-secondary"><i class="bi bi-calendar-check"></i> 发表于 {{ restaurants.created }}</small>
+        </div>
+      <div class="row g-3">
+    <!-- 主图片 -->
+    <div class="col-auto">
+        <div class="rounded shadow-sm overflow-hidden" style="width:500px; height:400px;">
+            <img src="{{ restaurants.main_image.url }}" alt="Restaurant Image" class="img-fluid w-100 h-100" style="object-fit: cover;">
+        </div>
+    </div>
+
+    <!-- 侧边小图 -->
+    <div class="col">
+        <div class="rounded shadow-sm overflow-hidden" style="width:300px; height:300px;">
+            <img src="{{ restaurants.restaurant_image.url }}" alt="Restaurant Image" class="img-fluid w-100 h-100" style="object-fit: cover;">
+        </div>
+    </div>
+
+    <!-- 营业时间卡片 -->
+   <div class="col mb-3">
+    <div class="card border-secondary shadow-sm rounded-3">
+        <div class="card-header bg-light text-dark fw-bold text-center">
+            Business Hours
+        </div>
+        <div class="card-body text-center">
+            <p class="card-text text-muted">{{ restaurants.business_Hours }}</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+      <div class="card mb-4 shadow-sm" style="margin-left:0px;margin-top:15px">
+    <div class="card-body" style="margin-left:-10px">
+        <p class="text-muted fs-5" style="word-wrap: break-word;">{{ restaurants.Introduction }}</p>
+    </div>
+</div>
+
+
+        <div>
+        </div>
+         {% if restaurants.owner.id == user.id%}
+         <a href="{% url 'userprofile:restaurant_delete' id=restaurants.id %}" class="text-decoration-none float-end text-danger ms-3">delete</a>
+         <a href="{% url 'userprofile:restaurant_update' id=restaurants.id %}" class="text-decoration-none float-end">modify</a>
+         {% endif %}
+    </div>
+
+    <div class="col col-3" style="margin-top:30px; border-left: 2px solid #000;">
+        <div id="map" style="height: 600px;"></div>
+
+    </div>
+</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-9 mt-4">
+                <div class="shadow p-4">
+                    ...
+                    <p><span class="fw-bolder text-warning">{{ comments.count }}</span> comments</p>
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'comment:comment_post' restaurants.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <textarea class="form-control me-3" name="body" aria-label="With textarea"
+                                          required></textarea>
+                                <select class="form-select me-3" name="rating" required>
+                <option value="1">1 ⭐</option>
+                <option value="2">2 ⭐</option>
+                <option value="3">3 ⭐</option>
+                <option value="4">4 ⭐</option>
+                <option value="5">5 ⭐</option>
+            </select>
+                                <button type="submit" class="input-group-text btn btn-primary">发表评论</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <h5 class="text-center">请<a href="{% url 'userprofile:login' %}" class="text-decoration-none">【登录】</a>后发表评论!
+                        </h5>
+                    {% endif %}
+                    <div class="border p-4 mt-3 bg-light">
+                        {% for comment in comments %}
+                            <div class="row border-bottom mb-3">
+                                <div class="col-1">
+                                    <img src="{{ comment.user.avatar.url }}" alt="用户头像" class="img-fluid">
+                                </div>
+                                <div class="col-11">
+                                    <span class="text-info fw-bolder">{{ comment.user }}</span>
+                                    <span class="float-end text-secondary">{{ comment.created|date:"Y-m-d H:i:s" }}</span>
+                                    <p>{{ comment.body }}</p> <p>评分: {{ comment.rating }} ⭐</p>  <!-- 显示评分 -->
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 mt-4">
+                ....
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- 加载 Google Maps JavaScript API -->
