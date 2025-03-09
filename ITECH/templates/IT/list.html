@@ -1,4 +1,10 @@
 {% extends "IT/base.html" %}
+<style>
+    .news-heading {
+    white-space: pre-line;
+}
+
+</style>
 {% block title %}首页{% endblock %}
 {% block content %}
 <div class="row">
@@ -91,6 +97,26 @@
         </nav>
     </div>
 
-    <div class="col col-3" style="margin-top:30px; border-left: 2px solid #000;">website News:none</div>
+<div class="col col-3" style="margin-top:30px; border-left: 2px solid #000;">
+    <h2 id="news-heading"></h2>
+</div>
+
+<script>
+    const text = "Website News:\nChinese Restaurant Sharing Platform!\nYou can find the Chinese restaurant you want here!";
+    let index = 0;
+    const heading = document.getElementById("news-heading");
+
+    function typeWriter() {
+        if (index < text.length) {
+            let char = text.charAt(index);
+            heading.innerHTML += char === "\n" ? "<br>" : char; // 处理换行
+            index++;
+            setTimeout(typeWriter, 50); // 控制打字速度
+        }
+    }
+
+    typeWriter();
+</script>
+
 </div>
 {% endblock %}
