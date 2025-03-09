@@ -9,7 +9,4 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
 
 import os
 
-sys.path.append(project_path)
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ITECH.settings')
-
 application = get_wsgi_application()
