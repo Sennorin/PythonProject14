@@ -5,7 +5,7 @@
     <div class="container shadow col-7">
         <div class="pt-4">
             <h1>{{ restaurants.Name}}</h1>
-            <small class="text-secondary"><i class="bi bi-calendar-check"></i> 发表于 {{ restaurants.created }}</small>
+            <small class="text-secondary"><i class="bi bi-calendar-check"></i> update:{{ restaurants.created }}</small>
         </div>
       <div class="row g-3">
     <!-- 主图片 -->
@@ -30,6 +30,14 @@
         </div>
         <div class="card-body text-center">
             <p class="card-text text-muted">{{ restaurants.business_Hours }}</p>
+        </div>
+    </div>
+          <div class="card border-secondary shadow-sm rounded-3" style="margin-top:30px">
+        <div class="card-header bg-light text-dark fw-bold text-center">
+            Address
+        </div>
+        <div class="card-body text-center">
+            <p class="card-text text-muted">{{ restaurants.address}}</p>
         </div>
     </div>
 </div>
@@ -75,23 +83,22 @@
                 <option value="4">4 ⭐</option>
                 <option value="5">5 ⭐</option>
             </select>
-                                <button type="submit" class="input-group-text btn btn-primary">发表评论</button>
+                                <button type="submit" class="input-group-text btn btn-primary">Leave a comment</button>
                             </div>
                         </form>
                     {% else %}
-                        <h5 class="text-center">请<a href="{% url 'userprofile:login' %}" class="text-decoration-none">【登录】</a>后发表评论!
-                        </h5>
+                      <h5 class="text-center">Please <a href="{% url 'userprofile:user_login' %}" class="text-decoration-none">【login】</a> before posting a comment!</h5>
                     {% endif %}
                     <div class="border p-4 mt-3 bg-light">
                         {% for comment in comments %}
                             <div class="row border-bottom mb-3">
                                 <div class="col-1">
-                                    <img src="{{ comment.user.avatar.url }}" alt="用户头像" class="img-fluid">
+                                    <img src="{{ comment.user.avatar.url }}" alt="useravatar" class="img-fluid">
                                 </div>
                                 <div class="col-11">
                                     <span class="text-info fw-bolder">{{ comment.user }}</span>
                                     <span class="float-end text-secondary">{{ comment.created|date:"Y-m-d H:i:s" }}</span>
-                                    <p>{{ comment.body }}</p> <p>评分: {{ comment.rating }} ⭐</p>  <!-- 显示评分 -->
+                                    <p>{{ comment.body }}</p> <p>rating: {{ comment.rating }} ⭐</p>  <!-- 显示评分 -->
                                 </div>
                             </div>
                         {% endfor %}

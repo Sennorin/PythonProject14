@@ -54,6 +54,8 @@ def restaurant_detail(request, id):
     comments = Comment.objects.filter(restaurant=restaurants)
     context = {'restaurants': restaurants,'comments': comments}
     return render(request, "IT/detail.html", context)
+
+
 def introduction(request):
     return render(request, "IT/introduction.html")
 # Create your views here.
